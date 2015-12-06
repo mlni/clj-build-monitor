@@ -39,7 +39,7 @@
 
 (defn -main [& args]
   (let [handler (reload/wrap-reload (site #'app))
-        port (or (System/getenv "PORT") 3000)]
+        port (Integer/parseInt (or (System/getenv "PORT") "3000"))]
     (log/info "Starting server on port " port)
     (run-server handler {:port port})
     (log/info "... started"))
