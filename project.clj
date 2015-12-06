@@ -18,6 +18,7 @@
   :plugins [[lein-cljsbuild "1.1.1"]]
   :clean-targets [:target-path "resources/public/main.js"]
   :hooks [leiningen.cljsbuild]
+  :uberjar-name "clj-build-monitor.jar"
 
   :profiles {:uberjar {:cljsbuild {:builds [{:source-paths ["src-ui"]
                                              :compiler     {:output-to     "resources/public/main.js"
