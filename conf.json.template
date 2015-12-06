@@ -1,0 +1,21 @@
+{
+  "monitor": {
+    "interval": 10000
+  },
+
+  "services": [{
+    "url": "http://teamcity.local:8080",
+    "username": "my-user",
+    "password": "my-password",
+
+    "builds": [
+        {
+          "id": "ExampleProject_RunTests",
+          "title": "PUD"
+        },
+        {
+          "id": "ExampleProject_BuildRelease"
+        }
+    ]
+  }]
+}

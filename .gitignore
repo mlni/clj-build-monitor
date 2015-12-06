@@ -1,0 +1,5 @@
+.idea
+buildmonitor.iml
+target
+resources/public/main.js
+conf.json
