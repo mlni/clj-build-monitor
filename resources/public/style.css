@@ -69,6 +69,14 @@
   background-color: rgb(40, 40, 40);
 }
 
+.footer {
+  font-size: 14px;
+  color: #666;
+  text-align: right;
+  vertical-align: bottom;
+  clear: both;
+}
+
 /*******************************
 Connection status
 ********************************/
