@@ -72,9 +72,9 @@
 .footer {
   font-size: 14px;
   color: #666;
-  text-align: right;
-  vertical-align: bottom;
-  clear: both;
+  position: fixed;
+  bottom: 0;
+  right: 0;
 }
 
 /*******************************
