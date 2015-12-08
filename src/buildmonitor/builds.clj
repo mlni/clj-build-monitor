@@ -2,6 +2,7 @@
   (:require [clojure.data.json :as json]
             [buildmonitor.ci.teamcity :as tc]
             [buildmonitor.ci.jenkins :as jenkins]
+            [buildmonitor.ci.dummy :as dummy]
             [clojure.tools.logging :as log]))
 
 ; Cache of last successful poll of build results
@@ -10,6 +11,7 @@
 (defmulti fetch-service (fn [service] (keyword (.toLowerCase (or (:type service) "null")))))
 (defmethod fetch-service :teamcity [service] (tc/fetch-service service))
 (defmethod fetch-service :jenkins [service] (jenkins/fetch-service service))
+(defmethod fetch-service :dummy [service] (dummy/fetch-service service))
 (defmethod fetch-service :default [service]
   (log/warn "Unknown service type" (:type service))
   [])

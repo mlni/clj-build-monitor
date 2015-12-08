@@ -28,6 +28,10 @@
              (reset! connected (:connected state))
              (recur))))
 
+(defn- render-status [status]
+  (condp = status "success" "*"
+                  "failed" "!"
+                  "canceled" "?"))
 
 (defn render-build [build]
   [:li.build {:className (aget build "status")}
@@ -38,7 +42,7 @@
     [:span.number (aget build "number")]
     [:ol.history
      (for [h (aget build "history")]
-       ^{:key (aget h "id")} [:li (if (= (aget h "status") "success") "*" "!")])]]])
+       ^{:key (aget h "id")} [:li (render-status (aget h "status"))])]]])
 
 (defn- connection-status [connected]
   (when-not connected
