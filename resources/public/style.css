@@ -20,6 +20,18 @@
   margin: 10px;
   background-color: #2E2E29;
   float: left;
+  border-radius: 3px;
+
+  position: relative;
+}
+
+.build .progress {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 100%;
+  text-align: right;
+  padding: 10px;
 }
 
 .build .title {
@@ -76,6 +88,38 @@
   bottom: 0;
   right: 0;
 }
+
+@keyframes spinner {
+  0% {
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+.spinner:not(:required) {
+  -moz-animation: spinner 1250ms infinite linear;
+  -webkit-animation: spinner 1250ms infinite linear;
+  animation: spinner 1250ms infinite linear;
+  border: 8px solid #38e;
+  border-right-color: transparent;
+  border-radius: 16px;
+  box-sizing: border-box;
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  text-indent: -9999px;
+  width: 32px;
+  height: 32px;
+}
+
 
 /*******************************
 Connection status

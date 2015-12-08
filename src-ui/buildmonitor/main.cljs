@@ -31,6 +31,8 @@
 
 (defn render-build [build]
   [:li.build {:className (aget build "status")}
+   (when (= "running" (aget build "status"))
+     [:div.progress [:div.spinner]])
    [:div.title (aget build "name")]
    [:div.meta
     [:span.number (aget build "number")]
