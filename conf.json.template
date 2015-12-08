@@ -2,13 +2,14 @@
   "monitor": {
     "interval": 10000
   },
+  "services": [
+    {
+      "type": "TeamCity",
+      "url": "http://teamcity.local:8080",
+      "username": "my-user",
+      "password": "my-password",
 
-  "services": [{
-    "url": "http://teamcity.local:8080",
-    "username": "my-user",
-    "password": "my-password",
-
-    "builds": [
+      "builds": [
         {
           "id": "ExampleProject_RunTests",
           "title": "PUD"
@@ -16,6 +17,20 @@
         {
           "id": "ExampleProject_BuildRelease"
         }
-    ]
-  }]
+      ]
+    },
+    {
+      "type": "Jenkins",
+      "url": "http://jenkins.local:8080",
+      "username": "my-user",
+      "apikey": "my-api-key",
+
+      "builds": [
+        {
+          "id": "run_tests",
+          "title": "Tests"
+        }
+      ]
+    }
+  ]
 }
