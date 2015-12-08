@@ -6,12 +6,6 @@
 (defn- ->id [string]
   (str (.hashCode string)))
 
-(defn- status-text [status]
-  (get {:running  "Running"
-        :canceled "Canceled"
-        :failed   "Failed"
-        :success  "Success"} status))
-
 (defn- parse-status [build]
   (if (or (:building build) (nil? (:result build)))
     :running
@@ -27,7 +21,6 @@
                     (:name build))
    :number      (:number build)
    :status      (parse-status build)
-   :status-text (status-text (parse-status build))
    :history     (map (fn [b]
                        {:id     (->id (str (:fullDisplayName b)))
                         :number (:number b)

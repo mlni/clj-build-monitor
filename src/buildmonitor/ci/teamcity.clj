@@ -11,12 +11,6 @@
                     "ERROR"   :failed
                     "UNKNOWN" :canceled} (:status build))))
 
-(defn- status-text [status]
-  (get {:running  "Running"
-        :canceled "Canceled"
-        :failed   "Failed"
-        :success  "Success"} status))
-
 (defn- ->id [string]
   (str (.hashCode string)))
 
@@ -26,7 +20,6 @@
                     (get-in build [:buildType :name]))
    :number      (:number build)
    :status      (parse-status build)
-   :status-text (status-text (parse-status build))
    :history     (map (fn [b] {:id     (->id (str (:buildTypeId b) (:number b)))
                               :number (:number b)
                               :status (parse-status b)})
