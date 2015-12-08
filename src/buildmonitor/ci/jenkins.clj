@@ -1,6 +1,8 @@
 (ns buildmonitor.ci.jenkins
   (:require [clojure.data.json :as json]
             [org.httpkit.client :as http]
+            [clj-time.core :as t]
+            [clj-time.coerce :as c]
             [clojure.tools.logging :as log]))
 
 (defn- ->id [string]
@@ -15,17 +17,21 @@
           "NOT_BUILD" :running
           "ABORTED"   :canceled} (:result build) :canceled)))
 
+(defn- parse-start-time [build]
+  (t/in-secs (t/interval (c/from-long (:timestamp build)) (t/now))))
+
 (defn- simplify-jenkins-build [build history build-config]
-  {:id          (->id (str (:fullDisplayName build)))
-   :name        (or (:title build-config)
-                    (:name build))
-   :number      (:number build)
-   :status      (parse-status build)
-   :history     (map (fn [b]
-                       {:id     (->id (str (:fullDisplayName b)))
-                        :number (:number b)
-                        :status (parse-status b)})
-                     history)})
+  {:id            (->id (str (:fullDisplayName build)))
+   :name          (or (:title build-config)
+                      (:name build))
+   :number        (:number build)
+   :status        (parse-status build)
+   :seconds-since (parse-start-time build)
+   :history       (map (fn [b]
+                         {:id     (->id (str (:fullDisplayName b)))
+                          :number (:number b)
+                          :status (parse-status b)})
+                       history)})
 
 (defn- fetch-build [client build-config]
   (let [job-details (client (str "/job/" (:id build-config) "/api/json"))

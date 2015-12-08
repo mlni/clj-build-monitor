@@ -9,6 +9,7 @@
                  [ring/ring-devel "1.1.8"]
                  [compojure "1.0.2"]
                  [http-kit "2.1.19"]
+                 [clj-time "0.11.0"]
                  [org.clojure/tools.logging "0.2.6"]
                  [log4j/log4j "1.2.17"]]
   :min-lein-version "2.0.0"

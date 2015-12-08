@@ -28,6 +28,19 @@
              (reset! connected (:connected state))
              (recur))))
 
+(defn- render-time [seconds]
+  (letfn [(select-unit [units]
+            (or (first (filter (fn [[us _]] (pos? (quot seconds us))) units))
+                (last units)))]
+    (let [units [[(* 365 24 60 60) "y"]
+                 [(* 7 24 60 60) "w"]
+                 [(* 24 60 60) "d"]
+                 [(* 60 60) "h"]
+                 [60 "m"]
+                 [1 "s"]]
+          [unit-seconds unit] (select-unit units)]
+      (str (quot seconds unit-seconds) unit))))
+
 (defn- render-status [status]
   (condp = status "success" "*"
                   "failed" "!"
@@ -39,7 +52,7 @@
      [:div.progress [:div.spinner]])
    [:div.title (aget build "name")]
    [:div.meta
-    [:span.number (aget build "number")]
+    [:span.number (render-time (aget build "seconds-since"))]
     [:ol.history
      (for [h (aget build "history")]
        ^{:key (aget h "id")} [:li (render-status (aget h "status"))])]]])
