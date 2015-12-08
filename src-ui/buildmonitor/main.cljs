@@ -52,7 +52,7 @@
      [:div.progress [:div.spinner]])
    [:div.title (aget build "name")]
    [:div.meta
-    [:span.number (render-time (aget build "seconds-since"))]
+    [:span.time (render-time (aget build "seconds-since"))]
     [:ol.history
      (for [h (aget build "history")]
        ^{:key (aget h "id")} [:li (render-status (aget h "status"))])]]])
