@@ -18,8 +18,9 @@
 
 (defn- parse-start-time [build]
   ; 20151206T145920+0000
-  (let [start-time (tf/parse (tf/formatter "yyyyMMdd'T'HHmmssZ") (:startDate build))]
-    (t/in-seconds (t/interval start-time (t/now)))))
+  (let [start-time (tf/parse (tf/formatter "yyyyMMdd'T'HHmmssZ") (:startDate build))
+        now (if (t/after? start-time (t/now)) start-time (t/now))] ; clocks are not always in sync
+    (t/in-seconds (t/interval start-time now))))
 
 (defn- simplify-teamcity-build [build build-history build-conf]
   {:id            (->id (str (:buildTypeId build) (:number build)))
