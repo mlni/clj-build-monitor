@@ -70,15 +70,19 @@
 
 .builds .success {
   background-color: rgb(0,128,0);
+  transition: background-color 0.5s ease-in;
 }
 .builds .failed {
   background-color: rgb(255,0,0);
+  transition: background-color 0.5s ease-in;
 }
 .builds .running {
   background-color: rgb(0,100,255);
+  transition: background-color 0.5s ease-in;
 }
 .builds .canceled {
   background-color: rgb(70, 70, 70);
+  transition: background-color 0.5s ease-in;
 }
 
 .footer {
