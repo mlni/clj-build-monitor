@@ -22,7 +22,6 @@
     (t/in-secs (t/interval start-time (t/now)))))
 
 (defn- simplify-teamcity-build [build build-history build-conf]
-  (log/info (:title build-conf) (:startDate build) (parse-start-time build))
   {:id            (->id (str (:buildTypeId build) (:number build)))
    :name          (or (:title build-conf)
                       (get-in build [:buildType :name]))
