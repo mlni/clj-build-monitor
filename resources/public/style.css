@@ -62,7 +62,7 @@
 }
 
 .build div.meta ol.history li {
-  width: 30px;
+  width: 29px;
   height: 40px;
   text-align: center;
   display: inline-block;
@@ -109,9 +109,9 @@
 }
 
 .spinner:not(:required) {
-  -moz-animation: spinner 1250ms infinite linear;
-  -webkit-animation: spinner 1250ms infinite linear;
-  animation: spinner 1250ms infinite linear;
+  -moz-animation: spinner 3000ms infinite linear;
+  -webkit-animation: spinner 3000ms infinite linear;
+  animation: spinner 3000ms infinite linear;
   border: 8px solid #38e;
   border-right-color: transparent;
   border-radius: 16px;
