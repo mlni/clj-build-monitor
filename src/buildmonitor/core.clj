@@ -13,7 +13,8 @@
 (def connections (atom {}))
 
 (defn- send-builds [channel builds]
-  (send! channel (json/json-str builds)))
+  (when builds
+    (send! channel (json/json-str builds))))
 
 (defn push-handler [req]
   (with-channel req chn
