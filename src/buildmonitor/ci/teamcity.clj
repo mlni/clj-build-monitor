@@ -1,9 +1,8 @@
 (ns buildmonitor.ci.teamcity
-  (:require [clojure.data.json :as json]
-            [org.httpkit.client :as http]
-            [clj-time.core :as t]
+  (:require [clj-time.core :as t]
             [clj-time.format :as tf]
-            [clojure.tools.logging :as log]))
+            [buildmonitor.http :as http]
+            [buildmonitor.util :as u]))
 
 (defn- parse-status [build]
   (cond (:running build) :running
@@ -13,9 +12,6 @@
                     "ERROR"   :failed
                     "UNKNOWN" :canceled} (:status build))))
 
-(defn- ->id [string]
-  (str (.hashCode string)))
-
 (defn- parse-start-time [build]
   ; 20151206T145920+0000
   (let [start-time (tf/parse (tf/formatter "yyyyMMdd'T'HHmmssZ") (:startDate build))
@@ -23,13 +19,13 @@
     (t/in-seconds (t/interval start-time now))))
 
 (defn- simplify-teamcity-build [build build-history build-conf]
-  {:id            (->id (str (:buildTypeId build) (:number build)))
+  {:id            (u/->id (str (:buildTypeId build) (:number build)))
    :name          (or (:title build-conf)
                       (get-in build [:buildType :name]))
    :number        (:number build)
    :status        (parse-status build)
    :seconds-since (parse-start-time build)
-   :history       (map (fn [b] {:id     (->id (str (:buildTypeId b) (:number b)))
+   :history       (map (fn [b] {:id     (u/->id (str (:buildTypeId b) (:number b)))
                                 :number (:number b)
                                 :status (parse-status b)})
                        (take 10 build-history))})
@@ -45,19 +41,6 @@
         build-details (client (get (first sorted-builds) :href))]
     (simplify-teamcity-build build-details (rest sorted-builds) build-conf)))
 
-(defn- make-client [service]
-  (let [base-url (:url service)
-        options {:basic-auth [(:username service)
-                              (:password service)]
-                 :headers    {"Accept" "application/json"}
-                 :as         :text}]
-    (fn [href]
-      (let [url (str base-url href)]
-        (log/info "Fetching " url)
-        (let [promise (http/get url options)
-              response @promise]
-          (json/read-str (:body response) :key-fn keyword))))))
-
 (defn fetch-service [service]
-  (let [client (make-client service)]
+  (let [client (http/json-http-client (:url service) :username (:username service) :password (:password service))]
     (map #(fetch-build client %) (:builds service))))
