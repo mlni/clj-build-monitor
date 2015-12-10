@@ -26,3 +26,6 @@ To develop the build monitor launch the server in one terminal: `lein run`. In a
 compiler: `lein with-profile dev cljsbuild auto`.
 
 Then point your browser at `http://localhost:3000/` and your editor at the source files and hack away.
+
+If you're tweaking the UI code or design then it can be helpful to add a service with type 'dummy' to generate dummy data
+with all possible build states.
