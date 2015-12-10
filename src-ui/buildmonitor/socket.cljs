@@ -11,7 +11,8 @@
 
 (defn- reconnect [url connection-channel read-channel]
   (js/console.log "attempting reconnect")
-  (let [con (js/WebSocket. url)]
+  (let [con (js/WebSocket. url)
+        ping (js/setInterval (fn [] (.send con :ping)) 60000)]
     (set! (.-onopen con)
           (fn []
             (put! connection-channel {:connected true})))
@@ -21,6 +22,7 @@
     (set! (.-onclose con)
           (fn []
             (put! connection-channel {:connected false})
+            (js/clearInterval ping)
             (js/setTimeout (fn [] (reconnect url connection-channel read-channel)) 5000)))))
 
 (defn open-socket [path connection-channel read-channel]
