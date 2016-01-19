@@ -44,7 +44,7 @@
 (defn- render-status [status]
   (condp = status "success" "*"
                   "failed" "!"
-                  "canceled" "?"))
+                  "?"))
 
 (defn render-build [build]
   [:li.build {:className (aget build "status")}

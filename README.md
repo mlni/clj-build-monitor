@@ -4,7 +4,9 @@ A CI build monitor for displaying build status on a big screen. Currently suppor
 
 ## Requirements
 
-Requires Java 8.
+Requires Java 8 for running.
+
+For developing also requires [Leiningen](http://leiningen.org/).
 
 ## Building
 
