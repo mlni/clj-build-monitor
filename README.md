@@ -2,6 +2,23 @@
 
 A CI build monitor for displaying build status on a big screen. Currently supports Teamcity and Jenkins CI services.
 
+## Description
+
+![screenshot](resources/public/screenshot.png)
+
+The build monitor displays builds of configured projects in the order they appear in the configuration, in order to provide at-a-glance overview of what the status of each project is.
+
+Each build can be in one of four states as indicated by the color:
+* Green - successful build
+* Red - broken build
+* Blue - currently running build
+* Gray - canceled build or unknown status
+
+In addition to color each project provides a human-readable time of last build and an overview of recent history of builds. The history uses the following symbols to represent build statuses:
+* * - successful
+* ! - broken
+* ? - canceled or unknown
+
 ## Requirements
 
 Requires Java 8 for running.
