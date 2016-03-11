@@ -35,7 +35,7 @@
     (reverse (sort-by #(bigint (:number %)) build-history))))
 
 (defn- fetch-build [client build-conf]
-  (let [build-history (client (str "/httpAuth/app/rest/buildTypes/id:" (:id build-conf) "/builds?locator=count:10"))
+  (let [build-history (client (str "/httpAuth/app/rest/buildTypes/id:" (:id build-conf) "/builds?locator=count:10,failedToStart:any"))
         running-builds (client (str "/httpAuth/app/rest/buildTypes/id:" (:id build-conf) "/builds?locator=running:true,count:10"))
         sorted-builds (sort-by-build-number build-history running-builds)
         build-details (client (get (first sorted-builds) :href))]
