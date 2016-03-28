@@ -19,4 +19,6 @@
         (log/info "Fetching " url)
         (let [promise (http/get url options)
               response @promise]
-          (json/read-str (:body response) :key-fn keyword))))))
+          (if (not= 2 (quot (:status response) 100))
+            (throw (RuntimeException. (str "Error in HTTP request " (:status response) " " (:body response))))
+            (json/read-str (:body response) :key-fn keyword)))))))
