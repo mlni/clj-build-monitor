@@ -11,13 +11,16 @@
                  [http-kit "2.1.19"]
                  [clj-time "0.11.0"]
                  [org.clojure/tools.logging "0.2.6"]
+                 [javax.xml.bind/jaxb-api "2.3.0"]          ; java 11
+                 [com.sun.xml.bind/jaxb-core "2.3.0"]
+                 [com.sun.xml.bind/jaxb-impl "2.3.0"]
                  [log4j/log4j "1.2.17"]]
   :min-lein-version "2.0.0"
   :source-paths ["src", "src-ui"]
   :main buildmonitor.core
   :aot [buildmonitor.core]
   :plugins [[lein-cljsbuild "1.1.1"]]
-  :clean-targets [:target-path "resources/public/main.js"]
+  :clean-targets ^{:protect false} [:target-path "resources/public/main.js"]
   :hooks [leiningen.cljsbuild]
   :uberjar-name "clj-build-monitor.jar"
 

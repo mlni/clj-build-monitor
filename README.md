@@ -1,6 +1,7 @@
 # clj-build-monitor
 
-A CI build monitor for displaying build status on a big screen. Currently supports Teamcity and Jenkins CI services.
+A CI build monitor for displaying build status on a big screen. 
+Currently supports Teamcity, Bamboo and Jenkins CI services.
 
 ## Description
 
