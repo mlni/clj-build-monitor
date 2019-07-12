@@ -42,7 +42,7 @@
       (str (quot seconds unit-seconds) unit))))
 
 (defn- render-status [status]
-  (condp = status "success" "*"
+  (condp = status "success" "✓"
                   "failed" "!"
                   "?"))
 
